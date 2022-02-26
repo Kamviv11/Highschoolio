@@ -8,9 +8,9 @@ public class Player
     public Player()
     {
         potions = 1;
-        armor = new Item(2, "basic", "armor");
-        weapon = new Item(2, "basic", "weapon");
-        weapon = "basic";  
+       // armor = new Item(2, "basic", "armor");
+    //    weapon = new Item(2, "basic", "weapon");
+        
     }
     public void usePot()
     {
@@ -28,12 +28,12 @@ public class Player
     public void combat(Enemy e)
     {
         Scanner keyboard = new Scanner(System.in);
-        while(enemy.health > 0 || stats[2] > 0)
+        while(e.health > 0 && stats[2] > 0)
         {
             System.out.println("What will you do? 0 for Light Attack. 1 for Heavy Attack. 2 for Block");
             int act = keyboard.nextInt();
             int enemyAct = (int)(Math.random()*3);
-            String[] actions = {"Heavy Attack","Light Attack","Block"};
+            String[] actions = {"Light Attack","Heavy Attack","Block"};
             System.out.println("You use " + actions[act] + " and the enemy uses " + actions[enemyAct]);
             if(act == enemyAct)
             {
@@ -43,20 +43,24 @@ public class Player
             {
                 System.out.println("The enemy wins and you lose " + e.damage + " health");
                 stats[2] -= e.damage;
+                System.out.println("You have " + stats[2] + " health left");
             }
             else
             {
-                System.out.println("The you win and the enemy loses " + weapon.stat + " health");
-                e.health -= weapon.stat;
+                System.out.println("The you win and the enemy loses " + stats[1] + " health");
+                e.health -= stats[1];
+                System.out.println("the enemy has " + e.health + " health left");
             }
         }
-        if(enemy.health < 0)
+        if(e.health <= 0)
         {
-            System.out.println("You have defeated the enemy");
+            System.out.println("You have defeated the enemy and got a potion");
+            potions++;
         }
         else
         {
             System.out.println("You have been defeated. Better luck next time.");
+            throw new IllegalArgumentException("You have failed HAHAHAHAHAHAHAHAHAH"); //LOL
         }
     }   
 }
