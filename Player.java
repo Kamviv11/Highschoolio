@@ -1,4 +1,4 @@
-import java.util.*;
+limport java.util.*;
 public class Player
 {
     public int potions;
@@ -59,7 +59,7 @@ public class Player
         }
         else
         {
-            System.out.println("You have been defeated. Better luck next time.");
+            System.out.println("An alien vaporizes you with a ray gun.");
             throw new IllegalArgumentException("You have failed HAHAHAHAHAHAHAHAHAH"); //LOL
         }
     }   
