@@ -12,9 +12,9 @@ public class DungeonCrawler
         System.out.println("The badly damaged ship crashes into the planet Xghrgd");
         System.out.println("Your only way to escape the hostile aliens is to reach the rocket launch site");
         System.out.println("As you crawl out the spacehsip you see an alien with a saber approaching you... ");
+        
+        
         System.out.println("LEVEL 1 - CRASH SITE");
-        
-        
         for(char[] list : board.level1)
         {
             for(char c : list)
@@ -26,11 +26,64 @@ public class DungeonCrawler
         System.out.println("# is the player\n! is the enemy\n$ is where the player needs to reach\n? is a chest");
         while(true)
         {
-            System.out.println("Where do you want to move? 1 for up, 2 for down, 3 for left, 4 for right. Type 5 to use a potion");
+            System.out.println("Where do you want to move? 1 for up, 2 for down, 3 for left, 4 for right. Type 5 to use a potion and 6 to see your info.\nType 10 to STOP");
             if(move(keyboard.nextInt(), board.level1)) break;
+            for(char[] list : board.level1)
+            {
+                for(char c : list)
+                {
+                   System.out.print(c);
+                }
+                System.out.println();
+            }
         }
-        
-        
+
+        System.out.println("LEVEL 2 - THE CRATER");
+        for(char[] list : board.level2)
+        {
+            for(char c : list)
+            {
+                System.out.print(c);
+            }
+             System.out.println();
+        }
+        System.out.println("# is the player\n! is the enemy\n$ is where the player needs to reach\n? is a chest");
+        while(true)
+        {
+            System.out.println("Where do you want to move? 1 for up, 2 for down, 3 for left, 4 for right. Type 5 to use a potion and 6 to see your info");
+            if(move(keyboard.nextInt(), board.level2)) break;
+            for(char[] list : board.level2)
+            {
+                for(char c : list)
+                {
+                   System.out.print(c);
+                }
+                System.out.println();
+            }
+        }       
+        System.out.println("LEVEL 3 - SHIPYARD");
+        for(char[] list : board.level3)
+        {
+            for(char c : list)
+            {
+                System.out.print(c);
+            }
+             System.out.println();
+        }
+        System.out.println("# is the player\n! is the enemy\n$ is where the player needs to reach\n? is a chest");
+        while(true)
+        {
+            System.out.println("Where do you want to move? 1 for up, 2 for down, 3 for left, 4 for right. Type 5 to use a potion and 6 to see your info");
+            if(move(keyboard.nextInt(), board.level3)) break;
+            for(char[] list : board.level3)
+            {
+                for(char c : list)
+                {
+                   System.out.print(c);
+                }
+                System.out.println();
+            }
+        }       
 
     }
     public static boolean move(int m, char[][] a)
@@ -38,16 +91,138 @@ public class DungeonCrawler
         int[] b = findPlayer(a);
         if(m == 1)
         {
-            if(a[ b[0] ][ b[1] + 1] == " ")
+            if(a[ b[0] -1][ b[1]] == ' ')
+            {
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]-1][b[1]] = '#';
+            }
+            else if(a[ b[0] -1][ b[1]] == '!')
+            {
+                p.combat( new Enemy(level) );
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]-1][b[1]] = '#';                
+            }
+            else if(a[ b[0] -1][ b[1]] == '?')
+            {
+                if((int)(Math.random()*2)==1)
+                {
+                    p.stats[0]++;
+                    System.out.println("You got better armor and a potion");
+                }
+                else{
+                    p.stats[1]++;
+                    System.out.println("You got better attack power and a potion");
+                }
+                p.potions++;
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]-1][b[1]] = '#';
+            }
+            else if (a[ b[0]-1 ][ b[1]] == '$')
+            {
+                System.out.println("You have finished level " + level);
+                level++;
+                return true;
+            }
+            else
+            {
+                System.out.println("There is a Wall in the way");
+            }
+            return false;
+        }
+        else if(m ==2)
+        {
+            if(a[ b[0] +1][ b[1] ] == ' ')
+            {
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]+1][b[1]] = '#';
+            }
+            else if(a[ b[0] +1][ b[1]] == '!')
+            {
+                p.combat( new Enemy(level) );
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]+1][b[1]] = '#';
+            }
+            else if(a[ b[0] +1][ b[1]] == '?')
+            {
+                if((int)(Math.random()*2)==1)
+                {
+                    p.stats[0]++;
+                    System.out.println("You got better armor and a potion");
+                }
+                else{
+                    p.stats[1]++;
+                    System.out.println("You got better attack power and a potion");
+                }
+                p.potions++;
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]+1][b[1]] = '#';
+            }
+            else if (a[ b[0] +1][ b[1] ] == '$')
+            {
+                System.out.println("You have finished level " + level);
+                level++;
+                return true;
+            }
+            else
+            {
+                System.out.println("There is a Wall in the way");
+            }
+            return false;
+        }
+        else if(m == 3)
+        {
+            if(a[ b[0]  ][ b[1]-1 ] == ' ')
+            {
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]][b[1]-1] = '#';
+            }
+            else if(a[ b[0] ][ b[1] -1] == '!')
+            {
+                p.combat( new Enemy(level) );
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]][b[1]-1] = '#';
+            }
+            else if(a[ b[0] ][ b[1] -1] == '?')
+            {
+                if((int)(Math.random()*2)==1)
+                {
+                    p.stats[0]++;
+                    System.out.println("You got better armor and a potion");
+                }
+                else{
+                    p.stats[1]++;
+                    System.out.println("You got better attack power and a potion");
+                }
+                p.potions++;
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]][b[1]-1] = '#';
+            }
+            else if (a[ b[0] ][ b[1] -1] == '$')
+            {
+                System.out.println("You have finished level " + level);
+                level++;
+                return true;
+            }
+            else
+            {
+                System.out.println("There is a Wall in the way");
+            }
+            return false;
+        }
+        else if(m == 4)
+        {
+            if(a[ b[0]  ][ b[1] +1] == ' ')
             {
                 a[b[0]][b[1]] =  ' ';
                 a[b[0]][b[1]+1] = '#';
             }
-            else if(a[ b[0] ][ b[1] + 1] == "!")
+            else if(a[ b[0] ][ b[1] +1] == '!')
             {
                 p.combat( new Enemy(level) );
+                a[b[0]][b[1]] =  ' ';
+                a[b[0]][b[1]+1] = '#';                
             }
-            else if(a[ b[0] ][ b[1] + 1] == "?")
+            else if(a[ b[0] ][ b[1] +1] == '?')
             {
                 if((int)(Math.random()*2)==1)
                 {
@@ -62,7 +237,7 @@ public class DungeonCrawler
                 a[b[0]][b[1]] =  ' ';
                 a[b[0]][b[1]+1] = '#';
             }
-            else if (a[ b[0] ][ b[1] + 1] == "?")
+            else if (a[ b[0] ][ b[1] +1] == '$')
             {
                 System.out.println("You have finished level " + level);
                 level++;
@@ -74,6 +249,19 @@ public class DungeonCrawler
             }
             return false;
         }
+        else if(m == 5)
+        {
+            p.usePot();
+        }
+        else if (m == 6)
+        {
+            System.out.println("DEF: " + p.stats[0] + "   ATK: " + p.stats[1] + "  Health: " + p.stats[2]);
+        }
+        else if (m == 10)
+        {
+            throw new IllegalArgumentException();
+        }
+        return false;
     }
     public static int[] findPlayer(char[][] arr)
     {
