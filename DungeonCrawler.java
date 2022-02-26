@@ -37,7 +37,8 @@ public class DungeonCrawler
                 System.out.println();
             }
         }
-
+        System.out.println("You escape the crash site and make your way to the launch pad");
+        System.out.println("While in a crater you are suddenly surrounded by the aliens");
         System.out.println("LEVEL 2 - THE CRATER");
         for(char[] list : board.level2)
         {
@@ -61,7 +62,9 @@ public class DungeonCrawler
                 System.out.println();
             }
         }       
-        System.out.println("LEVEL 3 - SHIPYARD");
+        System.out.println("You finally make your way to the launch pad eager to escape this cursed planet");
+        System.out.println("Right before you reach the rocket you are once again surrounded by aliens");
+        System.out.println("FINAL LEVEL - LAUNCH PAD");
         for(char[] list : board.level3)
         {
             for(char c : list)
@@ -125,7 +128,7 @@ public class DungeonCrawler
             }
             else
             {
-                System.out.println("There is a Wall in the way");
+                System.out.println("There is space debris in the way");
             }
             return false;
         }
